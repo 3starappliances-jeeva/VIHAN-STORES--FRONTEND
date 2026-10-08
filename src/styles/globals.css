@@ -1,0 +1,163 @@
+@import './tokens.css';
+
+/* ============================================================
+   Kids-theme type pairing.
+
+   Display  : Baloo 2        — rounded, bouncy, high x-height. The
+                               "kids" voice without being a comic font.
+   Body     : Nunito Sans    — Baloo's humanist cousin; rounded
+                               terminals keep the family feeling.
+   Tamil    : Baloo Thambi 2 — declared under BOTH family names with a
+                               Tamil unicode-range, so Tamil copy picks
+                               it up automatically instead of falling
+                               back to a system serif.
+   Self-hosted (public/fonts) — no runtime CDN dependency.
+   ============================================================ */
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/baloo2-400.woff2') format('woff2'); }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/baloo2-500.woff2') format('woff2'); }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/baloo2-600.woff2') format('woff2'); }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/baloo2-700.woff2') format('woff2'); }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/baloo2-800.woff2') format('woff2'); }
+
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/quicksand-400.woff2') format('woff2'); }
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/quicksand-500.woff2') format('woff2'); }
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/quicksand-600.woff2') format('woff2'); }
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/quicksand-700.woff2') format('woff2'); }
+
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/nunito-sans-400.woff2') format('woff2'); }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/nunito-sans-600.woff2') format('woff2'); }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/nunito-sans-700.woff2') format('woff2'); }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/nunito-sans-800.woff2') format('woff2'); }
+
+/* Tamil coverage, folded into both families by unicode-range */
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/baloo-thambi2-400.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/baloo-thambi2-600.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/baloo-thambi2-700.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/baloo-thambi2-400.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Quicksand'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/baloo-thambi2-700.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/baloo-thambi2-400.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/baloo-thambi2-600.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+@font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/baloo-thambi2-700.woff2') format('woff2'); unicode-range: U+0B80-0BFF, U+200C-200D, U+20B9; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* scroll-padding-top keeps anchor targets clear of the sticky header.
+     scroll-behavior affects programmatic + anchor scrolling only (never the
+     wheel/touch), so in-page links like #batch glide instead of teleporting.
+     The prefers-reduced-motion block at the end of this layer forces it back
+     to `auto` with !important. */
+  /* Backstop for law 9 — the page never scrolls sideways. `clip` rather than
+     `hidden` on purpose: `hidden` turns the element into a scroll container and
+     breaks `position: sticky` descendants (the header), while `clip` does not.
+     Wide content still has to scroll inside its own container (tables, rails);
+     this only stops one stray element dragging the whole layout off-screen and
+     clipping every fixed bar. */
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: calc(var(--vc-header-h) + 16px); }
+  /* ...but a route change should land instantly rather than animating the
+     whole page back to the top. RootLayout sets this flag for the one frame
+     in which react-router restores scroll position. */
+  html[data-routing] { scroll-behavior: auto; }
+  body { @apply bg-surface text-ink font-sans font-reg antialiased; font-size: 16px; line-height: 1.5; }
+  /* Headings carry the playful display face; body copy stays on Nunito for readability. */
+  /* Reference look: warm chocolate headings in a rounded geometric face, set a
+     shade wider than the body rather than tighter. */
+  h1, h2, h3, h4 { @apply font-display font-bold text-heading; text-wrap: balance; letter-spacing: 0.005em; }
+  p { text-wrap: pretty; }
+  a { @apply text-brand; }
+  ::selection { background: rgb(var(--vc-brand-100)); }
+  *:focus-visible { outline: 3px solid rgb(var(--vc-info-2)); outline-offset: 2px; border-radius: 6px; }
+  img { @apply block max-w-full; }
+  button, input, select, textarea { font: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
+}
+
+@layer components {
+  .page { @apply container; }
+  /* One vertical rhythm for every landing-page band: 48px mobile, 80px desktop. */
+  .section { @apply py-12 md:py-20; }
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[2000] focus:rounded-pill focus:bg-brand focus:px-4 focus:py-2 focus:text-white; }
+  .overline { @apply text-caption-1 font-bold uppercase tracking-[0.1em]; }
+  /* Minimal card: no hairline border — a soft clay shadow does the separating. */
+  .card { @apply rounded-tile bg-surface shadow-clay-sm; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  .hide-scrollbar { scrollbar-width: none; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .snap-rail { @apply flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-px-4; }
+  .snap-rail > * { @apply snap-start shrink-0; }
+  .price-strike { text-decoration: line-through; text-decoration-thickness: 1px; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .vc-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5l3 3 6-7' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+  }
+  .skeleton { @apply animate-shimmer rounded-tile bg-surface-1; background-image: linear-gradient(90deg, #f5f5f5 0px, #ececec 40px, #f5f5f5 80px); background-size: 800px 100%; }
+  .media { @apply bg-cream; }
+  .media img { @apply h-full w-full object-cover; }
+  /* Pack photography arrives portrait (833x1000), square (900x900) and landscape
+     (1400x933). Cover-cropping those to one square frame slices the pouch off,
+     so product surfaces letterbox instead.
+     This must be declared after `.media img` — both are (0,1,1), and a bare
+     `object-contain` utility is (0,1,0) and would silently lose. */
+  .media-contain img { @apply object-contain; }
+  .prose-vc p + p { @apply mt-3; }
+
+  /* ----------------------------------------------------------
+     Claymorphism.
+
+     The look is two inner shadows (a light one top-left, a dark
+     one bottom-right) that inflate the surface, plus one soft
+     outer drop shadow tinted to the fill so it reads as a solid
+     object rather than a floating rectangle.
+
+     --clay is the fill; --clay-shade the tint of the cast shadow.
+     Set them per instance with the .clay-* tone classes below.
+     ---------------------------------------------------------- */
+  .clay {
+    background: var(--clay, rgb(var(--vc-brand-100)));
+    box-shadow:
+      inset 5px 5px 9px rgba(255, 255, 255, 0.75),
+      inset -5px -5px 11px rgba(47, 41, 35, 0.11),
+      0 12px 22px -10px var(--clay-shade, rgba(47, 41, 35, 0.35));
+  }
+  /* Pressed — inner shadows swap sides so the object dents inward. */
+  .clay-press:active {
+    box-shadow:
+      inset -4px -4px 9px rgba(255, 255, 255, 0.6),
+      inset 5px 5px 11px rgba(47, 41, 35, 0.16),
+      0 4px 10px -8px var(--clay-shade, rgba(47, 41, 35, 0.35));
+  }
+  /* Ticket-stub scallop along the bottom edge, the way a coupon is die-cut.
+     Drawn as a row of page-coloured circles sitting over the strip's edge, which
+     is far more robust across browsers than compositing two mask layers. */
+  .scallop-bottom::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -7px;
+    height: 14px;
+    background-image: radial-gradient(circle at 7px 7px, rgb(var(--vc-bg-0)) 7px, transparent 7.5px);
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+  }
+
+  /* The tone classes below only declare --clay; `.clay` inflates it with inset
+     shadows. This is the flat read, for when a tone is wanted as a plain fill
+     on a surface that already carries its own shadow. */
+  .clay-flat { background: var(--clay, rgb(var(--vc-brand-100))); }
+
+  .clay-mint   { --clay: #A9E7CB; --clay-shade: rgba(31, 122, 83, .55); color: #14532F; }
+  .clay-butter { --clay: #FFE2A0; --clay-shade: rgba(168, 118, 10, .5);  color: #5C3D06; }
+  .clay-blush  { --clay: #FFC6CC; --clay-shade: rgba(168, 45, 72, .45);  color: #6E1127; }
+  .clay-sky    { --clay: #AEDCF2; --clay-shade: rgba(29, 100, 154, .48); color: #0F3F60; }
+  .clay-lilac  { --clay: #D8CBF8; --clay-shade: rgba(93, 64, 160, .45);  color: #35215E; }
+  .clay-peach  { --clay: #FFD2B4; --clay-shade: rgba(180, 90, 30, .45);  color: #6B3109; }
+  .clay-cream  { --clay: #F6EFE2; --clay-shade: rgba(120, 100, 70, .38); color: #4A3C22; }
+}

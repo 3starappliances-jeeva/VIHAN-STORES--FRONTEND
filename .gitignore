@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.env
+.env.local
+*.log
+.DS_Store
+
+# Superseded source art, duplicate uploads and old mockups. Kept on disk,
+# not published — git history would hold ~31 MB of it forever.
+.archive/

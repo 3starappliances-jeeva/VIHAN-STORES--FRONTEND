@@ -1,0 +1,94 @@
+/* ============================================================
+   Vihaan storefront tokens — primitive → semantic → component.
+   Values are the "athena" tokens read from the reference site
+   (see DESIGN-SYSTEM-JEEVA deliverable 07). Prefix: --vc-.
+
+   Colours are stored as space-separated "R G B" triplets (not
+   hex) so Tailwind's color-opacity modifier works on them, e.g.
+   `bg-brand/40` — see the `withOpacity` helper in
+   tailwind.config.ts. Read a token as a colour with
+   `rgb(var(--vc-x) / <alpha>)`, never `var(--vc-x)` alone.
+   ============================================================ */
+:root {
+  /* ------------------------------------------------------------------
+     Brand — sampled from the Vihaan pouches, not the scaffold's sea green.
+     Wine is the band across Red Banana, Banana Blossom and ABC Malt; chocolate
+     is Ragi Choco Malt and Dry Dates. Every text pair below is WCAG AA on both
+     white and cream (wine 7.8:1, chocolate 10.9:1, ink 13.7:1).
+     ------------------------------------------------------------------ */
+  --vc-brand-100: 251 237 240; /* #fbedf0 — blush tint */
+  --vc-brand-200: 243 207 216; /* #f3cfd8 */
+  --vc-brand-300: 227 163 179; /* #e3a3b3 */
+  --vc-brand-400: 196 94 120; /* #c45e78 */
+  --vc-brand: 155 34 66; /* #9b2242 — Red Banana band */
+  --vc-brand-hover: 138 30 58; /* #8a1e3a */
+  --vc-brand-deep: 110 23 46; /* #6e172e */
+
+  /* Headings take the warmer chocolate of the Ragi / Dry Dates packs. */
+  --vc-heading: 92 51 16; /* #5c3310 */
+
+  /* Neutrals — warmed so nothing on the page reads as cold grey next to the packs */
+  --vc-ink: 58 42 30; /* #3a2a1e */
+  --vc-text-secondary: 109 92 77; /* #6d5c4d */
+  --vc-text-tertiary: 148 131 115; /* #948373 — icons / non-essential only */
+  --vc-text-placeholder: 163 148 133; /* #a39485 */
+  --vc-text-disabled: 201 190 178; /* #c9beb2 */
+  --vc-bg-0: 255 255 255; /* #ffffff */
+  --vc-bg-1: 249 245 239; /* #f9f5ef */
+  --vc-bg-2: 235 227 216; /* #ebe3d8 */
+  --vc-cream: 251 246 238; /* #fbf6ee */
+  --vc-cream-2: 253 250 245; /* #fdfaf5 */
+  --vc-cream-3: 246 239 228; /* #f6efe4 */
+  --vc-border-1: 235 227 216; /* #ebe3d8 */
+  --vc-border-hover: 214 201 186; /* #d6c9ba */
+  --vc-border-selected: 160 142 123; /* #a08e7b — 3.2:1, the floor for input borders */
+
+  /* Accents */
+  --vc-lemon: 244 198 93; /* #f4c65d — amber, from the Nendran pack */
+  --vc-star: 184 128 14; /* #b8800e — 3.4:1 on white, clears the 3:1 floor for graphical objects */
+
+  /* Packaging accents — sampled from the Vihaan pouches so the UI matches
+     the product photography instead of fighting it. */
+  --vc-wine: 155 34 66; /* #9b2242 — Red Banana pouch */
+  --vc-wine-100: 253 238 241; /* #fdeef1 */
+  --vc-gold: 180 134 16; /* #b48610 — Nendran pouch (darkened for AA text) */
+  --vc-gold-100: 255 247 224; /* #fff7e0 */
+
+  /* Feedback */
+  --vc-success-0: 231 243 241; /* #e7f3f1 */
+  --vc-success-1: 175 217 210; /* #afd9d2 */
+  --vc-success-2: 25 135 117; /* #198775 */
+  --vc-success-text: 19 82 59; /* #13523b — AA on tint */
+  --vc-warning-0: 255 246 233; /* #fff6e9 */
+  --vc-warning-1: 255 214 153; /* #ffd699 */
+  --vc-warning-2: 204 122 0; /* #cc7a00 — dot/icon only — text on warning tint stays ink */
+  --vc-error-0: 255 240 240; /* #fff0f0 */
+  --vc-error-1: 242 186 188; /* #f2babc */
+  --vc-error-2: 178 57 57; /* #b23939 */
+  --vc-info-0: 230 245 255; /* #e6f5ff */
+  --vc-info-1: 186 220 240; /* #badcf0 */
+  --vc-info-2: 0 89 149; /* #005995 */
+
+  /* Depth (warm grey, from the reference) */
+  --vc-elevation-1: 0 2px 16px 0 rgba(57, 57, 57, 0.09);
+  --vc-elevation-2: 0 8px 24px 0 rgba(57, 57, 57, 0.12);
+  --vc-elevation-3: 0 16px 48px -4px rgba(57, 57, 57, 0.18);
+  --vc-elevation-sheet: 0 -16px 48px -4px rgba(57, 57, 57, 0.18);
+
+  /* Clay depth — a soft ambient lift plus one tight contact shadow. Softer and
+     more diffuse than the elevation scale above, which is what makes a surface
+     read as moulded rather than as a floating sheet of paper. */
+  --vc-clay-sm: 0 2px 4px -2px rgba(47, 41, 35, 0.08), 0 10px 20px -8px rgba(47, 41, 35, 0.14);
+  --vc-clay-md: 0 4px 8px -3px rgba(47, 41, 35, 0.1), 0 18px 34px -10px rgba(47, 41, 35, 0.2);
+  --vc-clay-lg: 0 8px 14px -6px rgba(47, 41, 35, 0.12), 0 30px 56px -14px rgba(47, 41, 35, 0.26);
+
+  /* Layout */
+  --vc-header-h: 72px;
+  --vc-header-h-mobile: 56px;
+  --vc-announcement-h: 40px;
+  --vc-bottom-nav-h: 64px;
+  /* The nav's real footprint: its own height plus the iOS home-indicator inset.
+     Anything that has to sit above or clear the bottom nav uses this, so the
+     inset is accounted for in exactly one place. */
+  --vc-bottom-nav-total: calc(var(--vc-bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
